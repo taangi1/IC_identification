@@ -1,0 +1,21 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "IC"
+    },
+    {
+      "id": 1,
+      "name": "capacitor"
+    },
+    {
+      "id": 2,
+      "name": "resistor"
+    }
+  ],
+  "info": {
+    "year": 2025,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}

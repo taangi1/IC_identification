@@ -1,0 +1,3 @@
+Coil
+IC
+smd_resistor
