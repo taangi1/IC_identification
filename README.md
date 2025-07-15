@@ -12,7 +12,9 @@ Currently the project supports segmenting IC chips on different PCBs.
 
 > [!NOTE]
 > It is recommended to use python virtual environment venv to avoid conflicts.
+> 
 > `python -m venv .venv`
+> 
 > `source .venv/bin/activate`
 
 First, clone the repository with `git clone INSERT LINK`
