@@ -19,7 +19,7 @@ Currently the project supports segmenting IC chips on different PCBs.
 > 
 > `source .venv/bin/activate`
 
-First, clone the repository with `git clone INSERT LINK`
+First, clone the repository with `git clone https://github.com/taangi1/IC_detection.git`
 
 Then with pip install requirements with `pip install -r requirements.txt`
 
