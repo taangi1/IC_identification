@@ -1,14 +1,14 @@
-# Automated IC Chip Datasheet Lookup
+# Automated IC Chip Identification
 
-IC detection using YOLOv11 Segment and identification using Tesseract trained on custom dataset.
+IC detection using YOLOv11 Segment, trained on custom dataset, and identification using PaddleOCR.
 
 ## Project Overview
 
 The project aims to automate the process of integrated ciruit (IC) chip datasheet lookup for professionals in electronics repair, businesses related to electronics and IC chips, and just people interested in electronics 😀
 
-The project is still in development, and the datasheet lookup functionality is still unavailable.
+The project is still in development, and may have bugs. Please, report any bugs to [**Issues**](https://github.com/taangi1/IC_identification/issues).
 
-Currently the project supports segmenting IC chips on different PCBs.
+<img width="786" height="933" alt="Image" src="https://github.com/user-attachments/assets/b9965878-7ff4-4f8e-bedc-957be4782a5f" />
 
 ## How to run
 
@@ -19,9 +19,25 @@ Currently the project supports segmenting IC chips on different PCBs.
 > 
 > `source .venv/bin/activate`
 
-First, clone the repository with `git clone https://github.com/taangi1/IC_detection.git`
+First, clone the repository with `git clone https://github.com/taangi1/IC_identification.git`
+
+`cd IC_identification/`
 
 Then with pip install requirements with `pip install -r requirements.txt`
+
+### Run full IC Identification in a web-app [NEW]
+
+To run a web-app on local machine run the following commands:
+
+Go to web-app directory `cd web-app`
+
+Run the _app.py_ script with `python3 app.py`
+
+Open your browser and in the search bar type `localhost:5000`
+
+Allow the application to access the camera, then select the camera from drop-down menu. Click `Start Stream`. After the selected camera loads, put an IC chip in the frame. Click on the IC chip and see the extracted text below the stream.
+
+### Run detection only
 
 Run `predict.py` script with `python3 predict.py -p <picture_path>` to get back a segmented picture saved as `prediction-*timestamp*.jpg` in `predictions` directory, or run `python3 predict.py -c <camera_id>` to use a specific camera of the device (default is 0) and see the predictions in real time.
 
@@ -47,12 +63,12 @@ For labeling the dataset, label-studio was used. It was choosen as easy to use, 
 
 The `160p500es-seg.pt` model is the stable model that works with most boards. The name contains information about number of pictures `160p`, number of epochs `500e`, and model used `s-seg`: small segment model. The `trained_models` directory contains old models or experimental models that are not stable and might show poor results.
 
-## Difficulties
+The PaddleOCR was choosen as the OCR model for it's ability to automatically detect rotation in the image. It also showed the best results compared to EasyOCR or Tesseract
 
-There were several different experiments to decide which model works the best for IC segmentation. The basic bounding box did not provide sufficient results, often capturing pins of the IC or parts of the motherboard when the image of the IC is rotated. The oriented bounding boxes fixed the previous problem, but a new problem became evident - the skewenes of chips from the photo. If the photo of the chips is taken at an angle, the shape of the chips is often trapezoidal, which makes bounding boxes not very accurate in selecting the IC chip.
+Flask was used as lightweight web framework.
 
 ## Future work
 
-In the future, the project will utilize OCR library like tesseract, for IC chip identification, and search datasheet database for a match. It might include more types of different electronic components.
+The project will continously improve. In the future it is planned to utilize datasheet website archive api for lookup of the extracted IC chips.
 
 Any suggestions and contributions are welcome 😀
