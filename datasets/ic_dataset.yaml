@@ -1,0 +1,13 @@
+path: 'datasets/ic_dataset'
+
+train: 'images/train'
+val: 'images/val'
+
+names:
+  0: 'IC'
+  1: 'capacitor'
+  2: 'coil'
+  3: 'connector'
+  4: 'diode'
+  5: 'resistor'
+  6: 'transistor'

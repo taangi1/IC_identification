@@ -1,0 +1,7 @@
+path: 'datasets/ic_dataset_obb'
+
+train: 'images/train'
+val: 'images/val'
+
+names:
+  0: 'IC'

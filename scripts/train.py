@@ -21,7 +21,7 @@ def train_yolo_model():
              'and labels, and class names.'
     )
     parser.add_argument(
-        '--model', type=str, default='160p500es-seg.pt', # Default to a common pre-trained model
+        '--model', type=str, default='models/160p500es-seg.pt', # Default to a common pre-trained model
         help='Path to the pre-trained model (e.g. 160p500es-seg.pt)'
     )
     parser.add_argument(

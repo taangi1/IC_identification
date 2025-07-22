@@ -14,7 +14,7 @@ def main():
     group.add_argument("-p", "--picture", type=str, help="Path to an image file to save prediction as 'prediction-*timestamp*.jpg' in 'predictions' folder.")
 
     # Path to the model
-    parser.add_argument("-m", "--model", type=str, default="160p500es-seg.pt", help="Path to the trained model, default is 160p500es-seg.pt")
+    parser.add_argument("-m", "--model", type=str, default="models/160p500es-seg.pt", help="Path to the trained model, default is models/160p500es-seg.pt")
     
     args = parser.parse_args()
 

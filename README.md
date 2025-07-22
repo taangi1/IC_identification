@@ -1,49 +1,47 @@
 # Automated IC Chip Identification
 
-IC detection using YOLOv11 Segment, trained on custom dataset, and identification using PaddleOCR.
+integrated circuit (IC) detection using YOLOv11 Segment, trained on custom dataset, and identification using PaddleOCR.
 
 ## Project Overview
 
-The project aims to automate the process of integrated ciruit (IC) chip datasheet lookup for professionals in electronics repair, businesses related to electronics and IC chips, and just people interested in electronics 😀
+The project aims to automate the process of manual entry of IC chip markings to find datasheets, made for professionals in electronics repair, businesses related to electronics and IC chips, and enthusiasts interested in electronics 😀
 
 The project is still in development, and may have bugs. Please, report any bugs to [**Issues**](https://github.com/taangi1/IC_identification/issues).
 
 <img width="786" height="933" alt="Image" src="https://github.com/user-attachments/assets/b9965878-7ff4-4f8e-bedc-957be4782a5f" />
 
-## How to run
+## How to Run
 
 > [!NOTE]
 > It is recommended to use python virtual environment venv to avoid conflicts.
 > 
 > `python -m venv .venv`
 > 
-> `source .venv/bin/activate`
+> `source .venv/bin/activate` # On Windows, use `.venv\Scripts\activate`
 
 First, clone the repository with `git clone https://github.com/taangi1/IC_identification.git`
 
 `cd IC_identification/`
 
-Then with pip install requirements with `pip install -r requirements.txt`
+Then, install the required packages with `pip install -r requirements.txt`
 
-### Run full IC Identification in a web-app [NEW]
+### Run IC Identification Software in a local Web App
 
-To run a web-app on local machine run the following commands:
+To launch the web application on your local machine, run the following command:
 
-Go to web-app directory `cd web-app`
+`python3 web-app/app.py`
 
-Run the _app.py_ script with `python3 app.py`
+The application should automatically open in your default internet browser within 5 seconds. If not, open your web browser and navigate to `http://localhost:5000`.
 
-Open your browser and in the search bar type `localhost:5000`
+**Usage:** Allow the application to access your camera. Then, select your camera from the drop-down menu and click Start Stream. Once the selected camera feed loads, position an IC chip within the frame. Click on the IC chip in the stream to see the extracted text displayed below.
 
-Allow the application to access the camera, then select the camera from drop-down menu. Click `Start Stream`. After the selected camera loads, put an IC chip in the frame. Click on the IC chip and see the extracted text below the stream.
+### Run IC Detection only
 
-### Run detection only
+Run `python3 scripts/predict.py -p <picture_path>` to get back a segmented picture saved as `prediction-*timestamp*.jpg` in `predictions` directory, or run `python3 scripts/predict.py -c <camera_id>` to use a specific camera of the device (default is 0) and see the predictions in real time. To exit press `q`.
 
-Run `predict.py` script with `python3 predict.py -p <picture_path>` to get back a segmented picture saved as `prediction-*timestamp*.jpg` in `predictions` directory, or run `python3 predict.py -c <camera_id>` to use a specific camera of the device (default is 0) and see the predictions in real time.
+### Train on Custom Data
 
-## Train on custom data
-
-In order to train the model on custom data, `train.py` script can be used.
+In order to train the model on custom data, `scripts/train.py` script can be used.
 
 Use `--data` to specify the location of `data.yaml` file, where the training and validation sets are specified.
 
@@ -51,24 +49,24 @@ Use `--model` to specify the pretrained model to use for further training.
 
 Use `--name` to specify the name of the training run.
 
-For other functionality, use `python3 train.py --help`
+For other functionality, use `python3 scripts/train.py --help`
 
 The trained model will be saved to `runs/segment` by default.
 
 ## Solution Overview
 
-In order to segment the IC chips from an image of PCB, YOLO-v11s Segment model was used. It was choosen as an accurate model, that can quickly deliver results, and run on basic hardware. The basic bounding boxes approach, or oriented bounding boxes (OBB) were not choosen, as some IC chips have non-rectangular shape, and sometimes the image of the chips is skewed. Because of that, a decision to use segmentation model was made.
+To segment IC chips from an image of a Printed Circuit Board (PCB), the YOLO-v11s Segment model was employed. This model was chosen for its accuracy and speed, making it suitable for deployment on basic hardware. Traditional bounding box approaches (including oriented bounding boxes) were not selected due to the varied, sometimes non-rectangular, and occasionally skewed shapes of IC chips. Therefore, a segmentation model was preferred to accurately delineate the chip boundaries.
 
-For labeling the dataset, label-studio was used. It was choosen as easy to use, yet versatile software for image labeling.
+For dataset labeling, Label-Studio was utilized, valued for its ease of use and versatility in image annotation.
 
-The `160p500es-seg.pt` model is the stable model that works with most boards. The name contains information about number of pictures `160p`, number of epochs `500e`, and model used `s-seg`: small segment model. The `trained_models` directory contains old models or experimental models that are not stable and might show poor results.
+The `models/160p500es-seg.pt` model is considered the stable version, performing reliably across most boards. Its naming convention indicates: 160p (160 pictures), 500e (500 epochs), and s-seg (small segment model). The `archived_models` directory contains older or experimental models that may not be stable and could yield poor results.
 
-The PaddleOCR was choosen as the OCR model for it's ability to automatically detect rotation in the image. It also showed the best results compared to EasyOCR or Tesseract
+PaddleOCR was selected as the Optical Character Recognition (OCR) model due to its robust ability to automatically detect image rotation, and it demonstrated superior performance compared to alternatives like EasyOCR and Tesseract.
 
-Flask was used as lightweight web framework.
+Flask was chosen as the lightweight web framework for the web application's functionality.
 
 ## Future work
 
-The project will continously improve. In the future it is planned to utilize datasheet website archive api for lookup of the extracted IC chips.
+The project will continuously improve.
 
-Any suggestions and contributions are welcome 😀
+Any suggestions and contributions are highly welcome 😀

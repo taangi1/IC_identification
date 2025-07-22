@@ -5,16 +5,18 @@ from paddleocr import PaddleOCR
 from ultralytics import YOLO
 import os
 import traceback
+import webbrowser
+import time
 
 app = Flask(__name__)
 
-MODEL_PATH = '160p500es-seg.pt'
+MODEL_PATH = 'models/160p500es-seg.pt'
 
 # --- Global Variables for Video Capture, Models, and Last Detection ---
 yolo_lock = threading.Lock()
 yolo_model = None
 ocr_lock = threading.Lock()
-ocr_model = None # New: PaddleOCR model instance
+ocr_model = None
 
 # Store the detection results of the last processed frame
 last_detection_results = {
@@ -27,11 +29,11 @@ last_detection_results = {
 detection_lock = threading.Lock()
 
 def load_yolo_model():
-    """Loads the YOLOv8 segmentation model."""
+    """Loads the YOLOv11 segmentation model."""
     global yolo_model
     try:
         if not os.path.exists(MODEL_PATH):
-            print(f"Error: YOLOv8 model file not found at {MODEL_PATH}")
+            print(f"Error: YOLOv11 model file not found at {MODEL_PATH}")
             print("Please ensure '160p500es-seg.pt' is in the same directory as app.py")
             return False
         yolo_model = YOLO(MODEL_PATH)
@@ -247,7 +249,11 @@ def click_box():
                                 extracted_text.append(line)
 
             if extracted_text:
-                ocr_message = "Extracted Text:<br>" + "<br>".join(extracted_text)
+                text_display_html = "<br>".join(extracted_text)
+                search_query = '+'.join(extracted_text).replace(' ', '+').replace('#', '%23')
+                search_url = f"https://octopart.com/search?q={search_query}"
+                link_html = f'<a href="{search_url}" target="_blank" class="text-blue-500 dark:text-blue-400 hover:underline font-semibold">Search for this part on Octopart</a>'
+                ocr_message = f"<b>Extracted Text:</b><br>{text_display_html}<br><br>{link_html}"
                 return jsonify({"status": "success", "ocr_result": ocr_message})
             else:
                 return jsonify({"status": "info", "message": "No text detected in the clicked region."})
@@ -269,6 +275,22 @@ def add_header(response):
     return response
 
 if __name__ == '__main__':
-    load_yolo_model()
-    load_ocr_model()
-    app.run(host='0.0.0.0', port=5000)
+    port = 5000  # Or any other desired port
+    url = f"http://127.0.0.1:{port}"
+
+    def open_browser():
+        # Give the server a moment to start up before opening the browser
+        time.sleep(1)
+        webbrowser.open(url, new=0, autoraise=True)
+
+    # Start a new thread to open the browser
+    # This prevents the browser opening from blocking the Flask server from starting
+    threading.Timer(2, open_browser).start()
+
+    thread_yolo = threading.Thread(target=load_yolo_model)
+    thread_ocr = threading.Thread(target=load_ocr_model)
+
+    thread_yolo.start()
+    thread_ocr.start()
+
+    app.run(port=5000, debug=False)
