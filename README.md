@@ -1,10 +1,10 @@
 # Automated IC Chip Identification
 
-integrated circuit (IC) detection using YOLOv11 Segment, trained on custom dataset, and identification using PaddleOCR.
+Integrated circuit (IC) detection using YOLOv11 Segment, trained on custom dataset, and identification using PaddleOCR.
 
 ## Project Overview
 
-The project aims to automate the process of manual entry of IC chip markings to find datasheets, made for professionals in electronics repair, businesses related to electronics and IC chips, and enthusiasts interested in electronics 😀
+The project aims to automate the process of IC chip identification and datasheet lookup, made for professionals in electronics repair, businesses related to electronics, IC chip, and semiconductors, and enthusiasts interested in electronics 😀
 
 The project is still in development, and may have bugs. Please, report any bugs to [**Issues**](https://github.com/taangi1/IC_identification/issues).
 
@@ -17,7 +17,7 @@ The project is still in development, and may have bugs. Please, report any bugs 
 > 
 > `python -m venv .venv`
 > 
-> `source .venv/bin/activate` # On Windows, use `.venv\Scripts\activate`
+> `source .venv/bin/activate`
 
 First, clone the repository with `git clone https://github.com/taangi1/IC_identification.git`
 
