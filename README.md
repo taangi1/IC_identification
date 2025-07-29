@@ -8,7 +8,7 @@ The project aims to automate the process of IC chip identification and datasheet
 
 The project is still in development, and may have bugs. Please, report any bugs to [**Issues**](https://github.com/taangi1/IC_identification/issues).
 
-<img width="786" height="933" alt="Image" src="https://github.com/user-attachments/assets/5f9b3639-3513-4a0d-96b4-6ddb6161cf3b" />
+<img width="755" height="985" alt="Image" src="https://github.com/user-attachments/assets/690a98cd-4418-40b4-826c-baa2393da886" />
 
 ## How to Run
 
