@@ -22,7 +22,7 @@ def train_yolo_model():
     )
     parser.add_argument(
         '--model', type=str, default='models/160p500es-seg.pt', # Default to a common pre-trained model
-        help='Path to the pre-trained model (e.g. 160p500es-seg.pt)'
+        help='Path to the pre-trained model (e.g. models/160p500es-seg.pt)'
     )
     parser.add_argument(
         '--epochs', type=int, default=100,
@@ -107,7 +107,7 @@ def train_yolo_model():
 
     if not model_path.exists(): # Check if it's a file or a valid model name
         print(f"Error: Model file or name '{model_path}' not found or invalid.")
-        print("Please provide a valid path to a .yaml config or .pt weights file, or a valid model name (e.g., 'yolov8n.pt').")
+        print("Please provide a valid path to a .yaml config or .pt weights file, or a valid model name (e.g. models/160p500es-seg.pt).")
         sys.exit(1)
 
     # --- Initialize YOLO Model ---

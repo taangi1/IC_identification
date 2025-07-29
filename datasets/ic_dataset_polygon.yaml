@@ -1,0 +1,9 @@
+path: 'ic_dataset_polygon'
+
+train: 'images/train'
+val: 'images/val'
+
+names:
+  0: 'Coil'
+  1: 'IC'
+  2: 'smd_resistor'

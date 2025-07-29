@@ -1,4 +1,4 @@
-path: 'datasets/ic_dataset_obb'
+path: 'ic_dataset_obb'
 
 train: 'images/train'
 val: 'images/val'

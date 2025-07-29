@@ -29,18 +29,18 @@ last_detection_results = {
 detection_lock = threading.Lock()
 
 def load_yolo_model():
-    """Loads the YOLOv11 segmentation model."""
+    """Loads the YOLO11 segmentation model."""
     global yolo_model
     try:
         if not os.path.exists(MODEL_PATH):
-            print(f"Error: YOLOv11 model file not found at {MODEL_PATH}")
+            print(f"Error: YOLO11 model file not found at {MODEL_PATH}")
             print("Please ensure '160p500es-seg.pt' is in the same directory as app.py")
             return False
         yolo_model = YOLO(MODEL_PATH)
-        print(f"YOLOv11 segmentation model loaded from {MODEL_PATH}")
+        print(f"YOLO11 segmentation model loaded from {MODEL_PATH}")
         return True
     except Exception as e:
-        print(f"Error loading YOLOv11 model: {e}")
+        print(f"Error loading YOLO11 model: {e}")
         return False
 
 def load_ocr_model():
@@ -119,7 +119,7 @@ def generate_frames(camera_id):
                 # Store a copy of the original frame *before* drawing detections
                 original_frame_copy = frame.copy()
 
-                # Perform YOLOv11 inference
+                # Perform YOLO11 inference
                 with yolo_lock:
                     results = yolo_model(frame, stream=True, verbose=False)
 

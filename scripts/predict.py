@@ -47,9 +47,13 @@ def main():
 
             # Annotate the frame with predictions
             annotated_frame = results[0].plot()
+            
+            window_name = "YOLO Real-time Predictions"
+
+            cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
 
             # Display the annotated frame
-            cv2.imshow("YOLO Real-time Predictions", annotated_frame)
+            cv2.imshow(window_name, annotated_frame)
 
             # Break the loop if 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):

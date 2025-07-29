@@ -1,23 +1,25 @@
 # Automated IC Chip Identification
 
-Integrated circuit (IC) detection using YOLOv11 Segment, trained on custom dataset, and identification using PaddleOCR.
+Integrated circuit (IC) detection using YOLO11 Segment, trained on custom dataset, and identification using PaddleOCR.
 
 ## Project Overview
 
-The project aims to automate the process of IC chip identification and datasheet lookup, made for professionals in electronics repair, businesses related to electronics, IC chip, and semiconductors, and enthusiasts interested in electronics 😀
+The project aims to automate the process of IC chip identification and datasheet lookup, made for professionals in electronics repair and refurbishment, businesses related to electronics, IC chips, and semiconductors, and enthusiasts interested in electronics 😀
 
 The project is still in development, and may have bugs. Please, report any bugs to [**Issues**](https://github.com/taangi1/IC_identification/issues).
 
-<img width="786" height="933" alt="Image" src="https://github.com/user-attachments/assets/b9965878-7ff4-4f8e-bedc-957be4782a5f" />
+<img width="786" height="933" alt="Image" src="https://github.com/user-attachments/assets/5f9b3639-3513-4a0d-96b4-6ddb6161cf3b" />
 
 ## How to Run
 
 > [!NOTE]
 > It is recommended to use python virtual environment venv to avoid conflicts.
 > 
-> `python -m venv .venv`
+> `python3 -m venv .venv`
 > 
-> `source .venv/bin/activate`
+> `source .venv/bin/activate` (On Linux/macOS)
+>
+> `.\.venv\Scripts\activate` (On Windows PowerShell)
 
 First, clone the repository with `git clone https://github.com/taangi1/IC_identification.git`
 
@@ -55,15 +57,13 @@ The trained model will be saved to `runs/segment` by default.
 
 ## Solution Overview
 
-To segment IC chips from an image of a Printed Circuit Board (PCB), the YOLO-v11s Segment model was employed. This model was chosen for its accuracy and speed, making it suitable for deployment on basic hardware. Traditional bounding box approaches (including oriented bounding boxes) were not selected due to the varied, sometimes non-rectangular, and occasionally skewed shapes of IC chips. Therefore, a segmentation model was preferred to accurately delineate the chip boundaries.
+To segment IC chips from an image of a Printed Circuit Board (PCB), the [Ultralytics](https://www.ultralytics.com/) YOLO11s-seg Segment model was employed. This model was chosen for its accuracy and speed, making it suitable for deployment on basic hardware. Traditional bounding box approaches (including oriented bounding boxes) were not selected due to the varied, sometimes non-rectangular, and occasionally skewed shapes of IC chips. Therefore, a segmentation model was preferred to accurately delineate the chip boundaries.
 
-For dataset labeling, Label-Studio was utilized, valued for its ease of use and versatility in image annotation.
+For dataset labeling, [Label-Studio](https://labelstud.io/) was utilized, valued for its ease of use and versatility in image annotation.
 
-The `models/160p500es-seg.pt` model is considered the stable version, performing reliably across most boards. Its naming convention indicates: 160p (160 pictures), 500e (500 epochs), and s-seg (small segment model). The `archived_models` directory contains older or experimental models that may not be stable and could yield poor results.
+[PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) was selected as the Optical Character Recognition (OCR) model due to its robust ability to automatically detect image rotation, and it demonstrated superior performance compared to alternatives like EasyOCR and Tesseract.
 
-PaddleOCR was selected as the Optical Character Recognition (OCR) model due to its robust ability to automatically detect image rotation, and it demonstrated superior performance compared to alternatives like EasyOCR and Tesseract.
-
-Flask was chosen as the lightweight web framework for the web application's functionality.
+[Flask](https://flask.palletsprojects.com/en/stable/) was chosen as the lightweight web framework for the web application's functionality.
 
 ## Future work
 
